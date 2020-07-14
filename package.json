@@ -1,17 +1,20 @@
 {
   "name": "vue2hooks",
   "version": "0.1.0",
-  "private": true,
+  "main": "dist/vue2hooks.umd.js",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build --target lib --name vue2hooks src/index.js",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "lodash.debounce": "^4.0.8",
+    "lodash.throttle": "^4.1.1",
     "vue": "^2.6.11"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-optional-chaining": "^7.10.4",
     "@vue/cli-plugin-babel": "~4.4.0",
     "@vue/cli-plugin-eslint": "~4.4.0",
     "@vue/cli-service": "~4.4.0",
