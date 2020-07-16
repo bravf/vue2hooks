@@ -104,6 +104,9 @@ const useSwitch = initValue => {
     off: () => {
       state.value = false
     },
+    toggle: () => {
+      state.value = !state.value
+    },
     setValue: (value) => {
       state.value = value
     },
