@@ -1,6 +1,6 @@
 {
   "name": "vue2hooks",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "main": "dist/vue2hooks.umd.js",
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -12,10 +12,10 @@
     "lodash.clonedeep": "^4.5.0",
     "lodash.debounce": "^4.0.8",
     "lodash.throttle": "^4.1.1",
-    "vue": "^2.6.11",
-    "vue-router": "^3.4.3"
+    "vue": "^2.6.11"
   },
   "devDependencies": {
+    "vue-router": "^3.4.3",
     "core-js": "^3.6.5",
     "@babel/plugin-proposal-optional-chaining": "^7.10.4",
     "@vue/cli-plugin-babel": "~4.4.0",

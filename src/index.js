@@ -151,7 +151,7 @@ const useRequest = (fetcher, useRequestArgs = {}) => {
 }
 
 const useQuickState = (params = {}) => {
-  const state = params
+  const state = Vue.observable(params)
   const backupState = clonedeep(state)
   const reset = () => {
     assign(state, backupState)
