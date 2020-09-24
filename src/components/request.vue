@@ -62,7 +62,7 @@
 <script>
 import * as hooks from '../index.js'
 const testPromise = (testData, timeout) =>
-  new Promise((resolve) => {
+  new Promise(resolve => {
     setTimeout(() => {
       resolve(testData)
     }, timeout || 500)
@@ -93,10 +93,10 @@ export default {
           },
         },
         gender: {
-          parse: (value) => parseInt(value),
+          parse: value => parseInt(value),
         },
         status: {
-          parse: (value) => parseInt(value),
+          parse: value => parseInt(value),
         },
       },
 
@@ -137,6 +137,16 @@ export default {
       },
     })
 
+    hooks.useEventOn(
+      'hello',
+      () => {
+        console.log('hello emit')
+      },
+      this,
+    )
+    hooks.useEventOff('hello')
+    hooks.useEventEmit('hello')
+
     return {
       searchQState,
       listReq,
@@ -150,13 +160,12 @@ export default {
   },
   methods: {
     updateClick(data) {
-      // console.log(data)
       this.writeQState.state.type = 'update'
       this.writeQState.assign(data)
       this.writeSwitch.on()
     },
     writeConfirmClick() {
-      this.$refs.writeForm.validate((valid) => {
+      this.$refs.writeForm.validate(valid => {
         if (valid) {
           if (this.writeQState.state.type === 'add') {
             this.addReq.run()

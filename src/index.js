@@ -286,4 +286,25 @@ const useSwitch = (initValue = false) => {
   }
 }
 
-export { useRequest, useSwitch, usePageSearch, useQuickState, useRouteChange }
+const eventBus = new Vue()
+const useEventOn = (event, callback, vm) => {
+  eventBus.$on(event, callback)
+  if (vm) {
+    vm.$on('hook:beforeDestroy', () => {
+      useEventOff(event, callback)
+    })
+  }
+}
+const useEventOff = (...args) => eventBus.$off(...args)
+const useEventEmit = (...args) => eventBus.$emit(...args)
+
+export {
+  useRequest,
+  useSwitch,
+  usePageSearch,
+  useQuickState,
+  useRouteChange,
+  useEventOn,
+  useEventOff,
+  useEventEmit,
+}
