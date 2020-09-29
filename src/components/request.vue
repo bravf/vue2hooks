@@ -147,6 +147,11 @@ export default {
     hooks.useEventOff('hello')
     hooks.useEventEmit('hello')
 
+    hooks.useEventOnce('world', () => {
+      console.log('world emit')
+    })
+    hooks.useEventEmit('world')
+
     return {
       searchQState,
       listReq,

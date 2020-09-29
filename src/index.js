@@ -292,16 +292,18 @@ const useEventOn = (event, callback, vm) => {
     useEventOff(event, callback)
   })
 }
+const useEventOnce = (...args) => eventBus.$once(...args)
 const useEventOff = (...args) => eventBus.$off(...args)
 const useEventEmit = (...args) => eventBus.$emit(...args)
 
 export {
   useRequest,
+  useQuickState,
   useSwitch,
   usePageSearch,
-  useQuickState,
   useRouteQueryChange,
   useEventOn,
+  useEventOnce,
   useEventOff,
   useEventEmit,
 }
