@@ -168,7 +168,7 @@ const useQuickState = (params = {}) => {
   }
 }
 
-const useRouteChange = (useRouteChangeArgs = {}) => {
+const useRouteQueryChange = (useRouteChangeArgs = {}) => {
   useRouteChangeArgs = {
     vm: null,
     immediate: true,
@@ -200,7 +200,6 @@ const usePageSearch = (usePageSearchArgs = {}) => {
   const paramsState = quickState.state
   const routePath = vm.$route.path
   const convert = (key, value, type) => {
-    value = decodeURIComponent(value)
     if (key in format) {
       return format[key].parse(value)
     }
@@ -232,7 +231,7 @@ const usePageSearch = (usePageSearchArgs = {}) => {
       const stringifyFn = format[key]?.stringify || (val => val)
       const value = stringifyFn(paramsState[key])
       if (value !== stringifyFn(quickState.backupState[key])) {
-        effective[key] = encodeURIComponent(value)
+        effective[key] = value
       }
     }
     return effective
@@ -251,7 +250,7 @@ const usePageSearch = (usePageSearchArgs = {}) => {
     search()
   }
 
-  useRouteChange({
+  useRouteQueryChange({
     vm,
     callback: run,
   })
@@ -289,11 +288,9 @@ const useSwitch = (initValue = false) => {
 const eventBus = new Vue()
 const useEventOn = (event, callback, vm) => {
   eventBus.$on(event, callback)
-  if (vm) {
-    vm.$on('hook:beforeDestroy', () => {
-      useEventOff(event, callback)
-    })
-  }
+  vm.$on('hook:beforeDestroy', () => {
+    useEventOff(event, callback)
+  })
 }
 const useEventOff = (...args) => eventBus.$off(...args)
 const useEventEmit = (...args) => eventBus.$emit(...args)
@@ -303,7 +300,7 @@ export {
   useSwitch,
   usePageSearch,
   useQuickState,
-  useRouteChange,
+  useRouteQueryChange,
   useEventOn,
   useEventOff,
   useEventEmit,
