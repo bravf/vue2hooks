@@ -79,6 +79,9 @@ export default {
     })
     const listReq = hooks.useRequest(this.getList, {
       defaultParams: () => searchQState.state,
+      onSuccess: () => {
+        console.log('list req success')
+      },
     })
     const pageSearch = hooks.usePageSearch({
       quickState: searchQState,
@@ -103,7 +106,6 @@ export default {
       onSearch: () => {
         listReq.run()
       },
-      vm: this,
     })
 
     // 编辑新增
@@ -137,13 +139,9 @@ export default {
       },
     })
 
-    hooks.useEventOn(
-      'hello',
-      () => {
-        console.log('hello emit')
-      },
-      this,
-    )
+    hooks.useEventOn('hello', () => {
+      console.log('hello emit')
+    })
     hooks.useEventOff('hello')
     hooks.useEventEmit('hello')
 

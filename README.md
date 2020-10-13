@@ -110,8 +110,6 @@ const {
     pollingInterval: 1000,
     // 是否自动触发 fetcher 请求
     auto: false,
-    // 当前组件实例，当组件销毁时候，清除轮训计时器
-    vm: null,
   }
 )
 </script>
@@ -215,7 +213,7 @@ const {
 // 监听 route 参数变化
 export default {
   data () {
-    useRouteQueryChange({vm: this, callback: () => {}})
+    useRouteQueryChange({callback: () => {}})
   }
 }
 </script>
@@ -225,8 +223,6 @@ export default {
 
 ```javascript
 useRouteQueryChange({
-  // 当前组件
-  vm: this,
   // 是否在组件初始化时候立即执行一次，时机为 created
   immediate: true,
   // 要执行的函数
@@ -260,7 +256,6 @@ export default {
       gender: '',
     })
     cosnt pageSearch = usePageSearch({
-      vm: this,
       quickState: searchQState,
       onSearch: () => {
         // listReq.run()
@@ -298,8 +293,6 @@ const {
   },
   // 当执行 search 方法时候或者 router 参数变化时候触发的回调
   onSearch: () => {},
-  // 当前组件，用来获取 router
-  vm: null,
 })
 ```
 

@@ -4,6 +4,13 @@ import throttle from 'lodash.throttle'
 import clonedeep from 'lodash.clonedeep'
 import assign from 'lodash.assign'
 
+let currInstance = null
+Vue.mixin({
+  beforeCreate() {
+    currInstance = this
+  },
+})
+
 const getType = obj =>
   Object.prototype.toString
     .call(obj)
@@ -28,9 +35,9 @@ const useRequest = (fetcher, useRequestArgs = {}) => {
     throttleOptions: {},
     pollingInterval: 1000,
     auto: false,
-    vm: null,
     ...useRequestArgs,
   }
+  const vm = currInstance
   const getArgs = args => args || useRequestArgs.defaultParams()
   const createState = () => {
     return Vue.observable({
@@ -126,14 +133,12 @@ const useRequest = (fetcher, useRequestArgs = {}) => {
     }
     _run()
   }
-  const { vm } = useRequestArgs
-  if (vm) {
-    vm.$on('hook:beforeDestroy', () => {
-      Object.keys(states).forEach(k => {
-        cancelStatePolling(states[k])
-      })
+
+  vm.$on('hook:beforeDestroy', () => {
+    Object.keys(states).forEach(k => {
+      cancelStatePolling(states[k])
     })
-  }
+  })
   if (useRequestArgs.auto) {
     run()
   }
@@ -170,12 +175,12 @@ const useQuickState = (params = {}) => {
 
 const useRouteQueryChange = (useRouteChangeArgs = {}) => {
   useRouteChangeArgs = {
-    vm: null,
     immediate: true,
     callback: () => {},
     ...useRouteChangeArgs,
   }
-  const { vm, callback, immediate } = useRouteChangeArgs
+  const vm = currInstance
+  const { callback, immediate } = useRouteChangeArgs
   vm.$watch('$route', (to, from) => {
     if (to.path === from.path) {
       callback()
@@ -193,10 +198,10 @@ const usePageSearch = (usePageSearchArgs = {}) => {
     quickState: useQuickState(),
     format: {},
     onSearch: () => {},
-    vm: null,
     ...usePageSearchArgs,
   }
-  const { quickState, format, vm, onSearch } = usePageSearchArgs
+  const vm = currInstance
+  const { quickState, format, onSearch } = usePageSearchArgs
   const paramsState = quickState.state
   const routePath = vm.$route.path
   const convert = (key, value, type) => {
@@ -251,7 +256,6 @@ const usePageSearch = (usePageSearchArgs = {}) => {
   }
 
   useRouteQueryChange({
-    vm,
     callback: run,
   })
 
@@ -286,9 +290,9 @@ const useSwitch = (initValue = false) => {
 }
 
 const eventBus = new Vue()
-const useEventOn = (event, callback, vm) => {
+const useEventOn = (event, callback) => {
   eventBus.$on(event, callback)
-  vm.$on('hook:beforeDestroy', () => {
+  currInstance.$on('hook:beforeDestroy', () => {
     useEventOff(event, callback)
   })
 }
