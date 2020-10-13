@@ -9,9 +9,6 @@ Vue.mixin({
   beforeCreate() {
     currInstance = this
   },
-  beforeMount() {
-    currInstance = null
-  },
 })
 
 const getType = obj =>
