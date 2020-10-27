@@ -9,7 +9,7 @@
 .move
   h2 move test
   .move-div(
-    @mousedown='move.onMousedown',
+    @mousedown='move.start',
     :style='{ left: divPos.x + "px", top: divPos.y + "px" }'
   ) move me
 </template>
@@ -21,7 +21,7 @@ export default {
     const divPos = { x: 100, y: 100 }
     return {
       divPos,
-      move: useMove(divPos, (pos) => {
+      move: useMove(divPos, pos => {
         pos.x = Math.max(0, pos.x)
         pos.y = Math.max(0, pos.y)
       }),

@@ -33,7 +33,7 @@ const useMove = (initPos = { x: 0, y: 0 }, limit = () => {}) => {
     document.removeEventListener('mouseup', onMouseup)
   })
   return {
-    onMousedown,
+    start: onMousedown,
   }
 }
 

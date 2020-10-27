@@ -349,7 +349,7 @@ const { screenX, screenY, clientX, clientY, pageX, pageY } = useMouse(() => {
 ```javascript
 const {
   // 钩子函数，挂在触发拖动的元素上
-  onMousedown,
+  start,
 } = useMove(
   // 要移动的坐标值
   (initPos = { x: 0, y: 0 }),
@@ -371,7 +371,7 @@ const {
 <template lang="pug">
 .move
   h2 move test
-  .move-div(@mousedown='move.onMousedown', :style='{ left: divPos.x + "px", top: divPos.y + "px" }') move me
+  .move-div(@mousedown='move.start', :style='{ left: divPos.x + "px", top: divPos.y + "px" }') move me
 </template>
 <script>
 import { useMove } from '../index.js'
