@@ -7,6 +7,8 @@ import 'element-ui/lib/theme-chalk/index.css'
 import Request from './components/request'
 import HelloWord from './components/HelloWorld'
 import Instance from './components/instance'
+import Mouse from './components/mouse'
+import Move from './components/move'
 
 Vue.use(VueRouter)
 Vue.use(ElementUI, { size: 'mini' })
@@ -17,6 +19,8 @@ const routes = [
   { path: '/request', component: Request },
   { path: '/helloworld', component: HelloWord },
   { path: '/instance', component: Instance },
+  { path: '/mouse', component: Mouse },
+  { path: '/move', component: Move },
 ]
 
 const router = new VueRouter({

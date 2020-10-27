@@ -17,6 +17,8 @@ import useQuickState from './hooks/quickState'
 import useRequest from './hooks/request'
 import useRouteQueryChange from './hooks/routeQueryChange'
 import useSwitch from './hooks/switch'
+import useMouse from './hooks/mouse'
+import useMove from './hooks/move'
 
 Vue.mixin({
   beforeCreate() {
@@ -43,4 +45,6 @@ export {
   useRequest,
   useRouteQueryChange,
   useSwitch,
+  useMouse,
+  useMove,
 }
