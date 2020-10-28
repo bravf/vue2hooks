@@ -15,7 +15,12 @@ const useWatch = (...args) => {
   // watch 需要在 created 之后调用
   useCreated(f)
 }
-
+const useComputed = (key, value) => {
+  if (!context._this.$options.computed) {
+    context._this.$options.computed = {}
+  }
+  context._this.$options.computed[key] = value
+}
 export {
   context,
   useCreated,
@@ -28,4 +33,5 @@ export {
   useBeforeDestroy,
   useDestroyed,
   useWatch,
+  useComputed,
 }

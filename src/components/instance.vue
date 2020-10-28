@@ -6,36 +6,48 @@
 
 </template>
 <script>
-import * as hooks from '../index.js'
+import {
+  useCreated,
+  useBeforeMount,
+  useMounted,
+  useBeforeUpdate,
+  useUpdated,
+  useBeforeDestroy,
+  useDestroyed,
+  useComputed,
+  useWatch,
+} from '../index.js'
 export default {
   name: 'Instane',
   data() {
-    hooks.useCreated(() => {
+    const state = {
+      num: 1,
+    }
+    useCreated(() => {
       console.log('created')
     })
-    hooks.useBeforeMount(() => {
+    useBeforeMount(() => {
       console.log('beforeMount')
     })
-    hooks.useMounted(() => {
+    useMounted(() => {
       console.log('mounted')
     })
-    hooks.useBeforeUpdate(() => {
+    useBeforeUpdate(() => {
       console.log('beforeUpdate')
     })
-    hooks.useUpdated(() => {
+    useUpdated(() => {
       console.log('updated')
     })
-    hooks.useBeforeDestroy(() => {
+    useBeforeDestroy(() => {
       console.log('beforeDestory')
     })
-    hooks.useDestroyed(() => {
+    useDestroyed(() => {
       console.log('destroyed')
     })
-
+    useComputed('hello', () => state.num + 1)
+    useWatch('state.num', val => console.log(`state.num = ${val};hello = ${this.hello}`))
     return {
-      state: {
-        num: 1,
-      },
+      state,
     }
   },
 }

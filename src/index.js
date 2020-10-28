@@ -11,6 +11,7 @@ import {
   useBeforeDestroy,
   useDestroyed,
   useWatch,
+  useComputed,
 } from './hooks/instance'
 import { useEventOn, useEventOnce, useEventOff, useEventEmit } from './hooks/eventBus'
 import usePageSearch from './hooks/pageSearch'
@@ -39,6 +40,7 @@ export {
   useBeforeDestroy,
   useDestroyed,
   useWatch,
+  useComputed,
   useEventOn,
   useEventOnce,
   useEventOff,
