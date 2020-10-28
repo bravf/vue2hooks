@@ -32,9 +32,7 @@ const useMove = (initPos = { x: 0, y: 0 }, limit = () => {}) => {
   useBeforeDestroy(() => {
     document.removeEventListener('mouseup', onMouseup)
   })
-  return {
-    start: onMousedown,
-  }
+  return onMousedown
 }
 
 export default useMove

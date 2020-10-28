@@ -10,7 +10,11 @@ const useActivated = callback => context._this.$on('hook:activated', callback)
 const useDeactivated = callback => context._this.$on('hook:deactivated', callback)
 const useBeforeDestroy = callback => context._this.$on('hook:beforeDestroy', callback)
 const useDestroyed = callback => context._this.$on('hook:destroyed', callback)
-const useWatch = (...args) => context._this.$watch(...args)
+const useWatch = (...args) => {
+  const f = () => context._this.$watch(...args)
+  // watch 需要在 created 之后调用
+  useCreated(f)
+}
 
 export {
   context,

@@ -9,14 +9,14 @@
 .move
   h2 move test
   .move-div(
-    @mousedown='move.start',
+    @mousedown='move',
     :style='{ left: divPos.x + "px", top: divPos.y + "px" }'
   ) move me
 </template>
 <script>
 import { useMove } from '../index.js'
 export default {
-  name: 'Mouse',
+  name: 'Move',
   data() {
     const divPos = { x: 100, y: 100 }
     return {

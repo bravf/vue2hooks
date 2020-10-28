@@ -347,10 +347,8 @@ const { screenX, screenY, clientX, clientY, pageX, pageY } = useMouse(() => {
 #### Config:
 
 ```javascript
-const {
-  // 钩子函数，挂在触发拖动的元素上
-  start,
-} = useMove(
+// 钩子函数，挂在触发拖动的元素上
+const start = useMove(
   // 要移动的坐标值
   (initPos = { x: 0, y: 0 }),
   // 限定函数
@@ -371,7 +369,7 @@ const {
 <template lang="pug">
 .move
   h2 move test
-  .move-div(@mousedown='move.start', :style='{ left: divPos.x + "px", top: divPos.y + "px" }') move me
+  .move-div(@mousedown='move', :style='{ left: divPos.x + "px", top: divPos.y + "px" }') move me
 </template>
 <script>
 import { useMove } from '../index.js'
@@ -385,6 +383,51 @@ export default {
         pos.x = Math.max(0, pos.x)
         pos.y = Math.max(0, pos.y)
       }),
+    }
+  },
+}
+</script>
+
+```
+
+### useSize
+
+#### Config
+
+```javascript
+// app 是 ref name
+const size = useSize('app')
+```
+
+#### Demo
+
+```javascript
+<style lang="sass" scoped>
+.size-div
+  border: 1px solid red
+</style>
+<template lang="pug">
+.size
+  h2 size test
+  div 元素大小 {{ size }}
+  .size-div(ref='div')
+    img(src='https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png')
+</template>
+<script>
+import { useSize, useWatch } from '../index.js'
+export default {
+  name: 'Size',
+  data() {
+    useWatch(
+      'size',
+      () => {
+        console.log('size change')
+      },
+      { deep: true },
+    )
+
+    return {
+      size: useSize('div'),
     }
   },
 }

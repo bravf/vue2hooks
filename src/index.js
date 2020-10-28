@@ -10,6 +10,7 @@ import {
   useDeactivated,
   useBeforeDestroy,
   useDestroyed,
+  useWatch,
 } from './hooks/instance'
 import { useEventOn, useEventOnce, useEventOff, useEventEmit } from './hooks/eventBus'
 import usePageSearch from './hooks/pageSearch'
@@ -19,6 +20,7 @@ import useRouteQueryChange from './hooks/routeQueryChange'
 import useSwitch from './hooks/switch'
 import useMouse from './hooks/mouse'
 import useMove from './hooks/move'
+import useSize from './hooks/size'
 
 Vue.mixin({
   beforeCreate() {
@@ -36,6 +38,7 @@ export {
   useDeactivated,
   useBeforeDestroy,
   useDestroyed,
+  useWatch,
   useEventOn,
   useEventOnce,
   useEventOff,
@@ -47,4 +50,5 @@ export {
   useSwitch,
   useMouse,
   useMove,
+  useSize,
 }
