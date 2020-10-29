@@ -12,7 +12,33 @@ npm install --save vue2hooks
 import { useRequest } from 'vue2hooks'
 ```
 
-## API
+## Api Table of Contents
+
+- [useRequest](#useRequest)
+- [useQuickState](#useQuickState)
+- [usePageSearch](#usePageSearch)
+- [useRouteQueryChange](#useRouteQueryChange)
+- [useSwitch](#useSwitch)
+- [useMouse](#useMouse)
+- [useMove](#useMove)
+- [useSize](#useSize)
+- [useFullscreen](#useFullscreen)
+- [useCreated](#useCreated)
+- [useBeforeMount](#useBeforeMount)
+- [useMounted](#useMounted)
+- [useBeforeUpdate](#useBeforeUpdate)
+- [useUpdated](#useUpdated)
+- [useActivated](#useActivated)
+- [useDeactivated](#useDeactivated)
+- [useBeforeDestroy](#useBeforeDestroy)
+- [useDestroyed](#useDestroyed)
+- [useWatch](#useWatch)
+- [useComputed](#useComputed)
+- [useContext](#useContext)
+- [useEventOn](#useEventOn)
+- [useEventOnce](#useEventOnce)
+- [useEventOff](#useEventOff)
+- [useEventEmit](#useEventEmit)
 
 ### useRequest
 
