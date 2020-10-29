@@ -323,8 +323,8 @@ const {
 #### Demo:
 
 ```javascript
-// 上面 4 个方法是封装了一个全局 eventBus 后衍生的方法，基本同 eventBus，唯一不同的是 useEventOn，需要额外传入当前组件，目的是为了当组件销毁时候解绑
-useEventOn('dataChange', () => {}, this)
+// 上面 4 个方法是封装了一个全局 eventBus 后衍生的方法，基本同 eventBus
+useEventOn('dataChange', () => {})
 useEventEmit('dataChange', [])
 useEventOff('dataChange')
 ```
