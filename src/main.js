@@ -10,6 +10,7 @@ import Instance from './components/instance'
 import Mouse from './components/mouse'
 import Move from './components/move'
 import Size from './components/size'
+import Fullscreen from './components/fullscreen'
 
 Vue.use(VueRouter)
 Vue.use(ElementUI, { size: 'mini' })
@@ -23,6 +24,7 @@ const routes = [
   { path: '/mouse', component: Mouse },
   { path: '/move', component: Move },
   { path: '/size', component: Size },
+  { path: '/fullscreen', component: Fullscreen },
 ]
 
 const router = new VueRouter({

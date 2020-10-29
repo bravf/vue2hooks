@@ -23,6 +23,7 @@ import useSwitch from './hooks/switch'
 import useMouse from './hooks/mouse'
 import useMove from './hooks/move'
 import useSize from './hooks/size'
+import useFullscreen from './hooks/fullscreen'
 
 Vue.mixin({
   beforeCreate() {
@@ -58,4 +59,5 @@ export {
   useMouse,
   useMove,
   useSize,
+  useFullscreen,
 }

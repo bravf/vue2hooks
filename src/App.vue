@@ -1,3 +1,7 @@
+<style lang="sass">
+#app
+  background: #fff
+</style>
 <template>
   <div id="app">
     <router-view></router-view>
@@ -6,8 +10,6 @@
 
 <script>
 export default {
-  name: "App",
-};
+  name: 'App',
+}
 </script>
-
-<style></style>
