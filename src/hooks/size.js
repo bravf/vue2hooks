@@ -1,14 +1,13 @@
 import Vue from 'vue'
 import ResizeObserver from 'resize-observer-polyfill'
 import { getTargetElement } from './_dom'
-import { useMounted, useUpdated, useBeforeDestroy, context } from './instance'
+import { useMounted, useUpdated, useBeforeDestroy } from './instance'
 
-const useSize = refName => {
+const useSize = target => {
   const size = Vue.observable({
     width: NaN,
     height: NaN,
   })
-  const vm = context._this
   let el = null
   let resizeObserver = null
   const setSize = () => {
@@ -20,7 +19,7 @@ const useSize = refName => {
   }
 
   const setSizeEffect = () => {
-    el = getTargetElement(vm.$refs[refName])
+    el = getTargetElement(target)
     setSize()
     if (!resizeObserver) {
       resizeObserver = new ResizeObserver(entries => {

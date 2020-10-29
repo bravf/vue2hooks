@@ -323,6 +323,8 @@ useEventOff('dataChange')
 
 ### useWatch
 
+### useContext
+
 #### Config:
 
 ```javascript

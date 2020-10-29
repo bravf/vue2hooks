@@ -1,29 +1,40 @@
 <style lang="sass" scoped>
 .size-div
   border: 1px solid red
+  box-sizing: border-box
+  margin: 10px
 </style>
 <template lang="pug">
 .size
   h2 size test
-  div 元素大小 {{ size }}
-  .size-div(ref='div')
+
+  .size-div(v-for="element in elements", :ref="'div' + element.index")
+    h2 {{element.index}} : {{ element.size }}
     img(src='https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png')
+  
+  el-button()| 测试
 </template>
 <script>
-import { useSize, useWatch } from '../index.js'
+import { useSize, useContext } from '../index.js'
 export default {
   name: 'Size',
   data() {
-    useWatch(
-      'size',
-      () => {
-        console.log('size change')
-      },
-      { deep: true },
-    )
+    const elements = []
+    setTimeout(() => {
+      useContext(this)
+      Array(10)
+        .fill('')
+        .forEach((val, i) => {
+          const item = {
+            index: i,
+            size: useSize(() => this.$refs['div' + i][0]),
+          }
+          elements.push(item)
+        })
+    }, 1000)
 
     return {
-      size: useSize('div'),
+      elements,
     }
   },
 }

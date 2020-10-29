@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { useCreated, useBeforeDestroy } from './instance'
+import { useBeforeDestroy } from './instance'
 
 const useMouse = (callback = () => {}) => {
   const state = Vue.observable({
@@ -20,9 +20,7 @@ const useMouse = (callback = () => {}) => {
     state.pageY = pageY
     callback(state)
   }
-  useCreated(() => {
-    document.addEventListener('mousemove', moveHandler)
-  })
+  document.addEventListener('mousemove', moveHandler)
   useBeforeDestroy(() => {
     document.removeEventListener('mousemove', moveHandler)
   })

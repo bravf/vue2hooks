@@ -12,6 +12,7 @@ import {
   useDestroyed,
   useWatch,
   useComputed,
+  useContext,
 } from './hooks/instance'
 import { useEventOn, useEventOnce, useEventOff, useEventEmit } from './hooks/eventBus'
 import usePageSearch from './hooks/pageSearch'
@@ -25,6 +26,9 @@ import useSize from './hooks/size'
 
 Vue.mixin({
   beforeCreate() {
+    context._this = this
+  },
+  beforeUpdate() {
     context._this = this
   },
 })
@@ -41,6 +45,7 @@ export {
   useDestroyed,
   useWatch,
   useComputed,
+  useContext,
   useEventOn,
   useEventOnce,
   useEventOff,

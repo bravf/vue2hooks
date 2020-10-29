@@ -21,6 +21,7 @@ const useComputed = (key, value) => {
   }
   context._this.$options.computed[key] = value
 }
+const useContext = _this => (context._this = _this)
 export {
   context,
   useCreated,
@@ -34,4 +35,5 @@ export {
   useDestroyed,
   useWatch,
   useComputed,
+  useContext,
 }
