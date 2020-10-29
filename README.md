@@ -397,8 +397,7 @@ export default {
 #### Config
 
 ```javascript
-// app 是 ref name
-const size = useSize('app')
+const size = useSize(target)
 ```
 
 #### Demo
@@ -429,7 +428,7 @@ export default {
     )
 
     return {
-      size: useSize('div'),
+      size: useSize(() => this.$refs.div),
     }
   },
 }

@@ -11,13 +11,12 @@ const useMouse = (callback = () => {}) => {
     pageY: NaN,
   })
   const moveHandler = event => {
-    const { screenX, screenY, clientX, clientY, pageX, pageY } = event
-    state.screenX = screenX
-    state.screenY = screenY
-    state.clientX = clientX
-    state.clientY = clientY
-    state.pageX = pageX
-    state.pageY = pageY
+    state.screenX = event.screenX
+    state.screenY = event.screenY
+    state.clientX = event.clientX
+    state.clientY = event.clientY
+    state.pageX = event.pageX
+    state.pageY = event.pageY
     callback(state)
   }
   document.addEventListener('mousemove', moveHandler)

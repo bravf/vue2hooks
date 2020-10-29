@@ -4,9 +4,13 @@ import { getTargetElement } from './_dom'
 import { useMounted, useUpdated, useBeforeDestroy } from './instance'
 
 const useSize = target => {
-  const size = Vue.observable({
-    width: NaN,
-    height: NaN,
+  const state = Vue.observable({
+    clientWidth: NaN,
+    clientHeight: NaN,
+    offsetWidth: NaN,
+    offsetHeight: NaN,
+    scrollWidth: NaN,
+    scrollHeight: NaN,
   })
   let el = null
   let resizeObserver = null
@@ -14,8 +18,12 @@ const useSize = target => {
     if (!el) {
       return
     }
-    size.width = el.clientWidth
-    size.height = el.clientHeight
+    state.clientWidth = el.clientWidth
+    state.clientHeight = el.clientHeight
+    state.offsetWidth = el.offsetWidth
+    state.offsetHeight = el.offsetHeight
+    state.scrollWidth = el.scrollWidth
+    state.scrollHeight = el.scrollHeight
   }
 
   const setSizeEffect = () => {
@@ -35,7 +43,7 @@ const useSize = target => {
       resizeObserver.disconnect()
     }
   })
-  return size
+  return state
 }
 
 export default useSize
