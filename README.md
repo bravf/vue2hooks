@@ -375,7 +375,7 @@ const { screenX, screenY, clientX, clientY, pageX, pageY } = useMouse(() => {
 #### Config:
 
 ```javascript
-const start = useMove(initPos, [options])
+const move = useMove([options])
 ```
 
 #### Demo:
@@ -391,7 +391,7 @@ const start = useMove(initPos, [options])
 <template lang="pug">
 .move
   h2 move test
-  .move-div(@mousedown='move', :style='{ left: divPos.x + "px", top: divPos.y + "px" }') move me
+  .move-div(@mousedown='() => move(divPos)', :style='{ left: divPos.x + "px", top: divPos.y + "px" }') move me
 </template>
 <script>
 import { useMove } from '../index.js'
@@ -399,12 +399,17 @@ export default {
   name: 'Mouse',
   data() {
     const divPos = { x: 100, y: 100 }
+    const move = useMove({
+      onMove: pos => {
+        pos.x = Math.max(0, pos.x)
+        pos.y = Math.max(0, pos.y)
+        console.log('on move', pos)
+      },
+      onMoveEnd: pos => console.log('on move end', pos),
+    })
     return {
       divPos,
-      move: useMove(divPos, {
-        onMove: () => {},
-        onMoveEnd: () => {},
-      })
+      move,
     }
   },
 }
@@ -417,7 +422,8 @@ export default {
 #### Config
 
 ```javascript
-const size = useSize(target, [options])
+const getSize = useSize([options])
+const size = getSize(() => this.$refs.div)
 ```
 
 #### Demo
@@ -435,22 +441,17 @@ const size = useSize(target, [options])
     img(src='https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png')
 </template>
 <script>
-import { useSize, useWatch } from '../index.js'
+import { useSize } from '../index.js'
 export default {
   name: 'Size',
   data() {
-    useWatch(
-      'size',
-      () => {
-        console.log('size change')
+    const getSize = useSize({
+      onSizeChange: state => {
+        console.log(state)
       },
-      { deep: true },
-    )
-
+    })
     return {
-      size: useSize(() => this.$refs.div, {
-        onSizeChange: () => {}
-      }),
+      size: getSize(() => this.$refs.div),
     }
   },
 }

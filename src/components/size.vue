@@ -15,21 +15,23 @@
   el-button()| 测试
 </template>
 <script>
-import { useSize, useContext } from '../index.js'
+import { useSize } from '../index.js'
 export default {
   name: 'Size',
   data() {
     const elements = []
+    const getSize = useSize({
+      onSizeChange: state => {
+        console.log(state)
+      },
+    })
     setTimeout(() => {
-      useContext(this)
-      Array(10)
+      Array(5)
         .fill('')
         .forEach((val, i) => {
           const item = {
             index: i,
-            size: useSize(() => this.$refs['div' + i][0], {
-              onSizeChange: size => console.log(JSON.stringify(size)),
-            }),
+            size: getSize(() => this.$refs['div' + i][0]),
           }
           elements.push(item)
         })

@@ -1,9 +1,9 @@
 import useMouse from './mouse'
 import { useBeforeDestroy } from './instance'
 
-const useMove = (initPos = { x: 0, y: 0 }, options = {}) => {
-  console.log('usemove')
+const useMove = (options = {}) => {
   const { onMove, onMoveEnd } = options
+  let currPos = null
   let isStart = false
   const startPos = {
     x: 0,
@@ -15,21 +15,25 @@ const useMove = (initPos = { x: 0, y: 0 }, options = {}) => {
   }
   const mouse = useMouse(() => {
     if (!isStart) return
-    initPos.x = startPos.x + mouse.pageX - startMousePos.x
-    initPos.y = startPos.y + mouse.pageY - startMousePos.y
-    onMove && onMove(initPos)
+    currPos.x = startPos.x + mouse.pageX - startMousePos.x
+    currPos.y = startPos.y + mouse.pageY - startMousePos.y
+    onMove && onMove(currPos)
   })
-  const onMousedown = () => {
+  const onMousedown = pos => {
+    if (!pos) {
+      return
+    }
+    currPos = pos
     isStart = true
     startMousePos.x = mouse.pageX
     startMousePos.y = mouse.pageY
-    startPos.x = initPos.x
-    startPos.y = initPos.y
+    startPos.x = currPos.x
+    startPos.y = currPos.y
   }
   const onMouseup = () => {
     if (!isStart) return
     isStart = false
-    onMoveEnd && onMoveEnd(initPos)
+    onMoveEnd && onMoveEnd(currPos)
   }
   document.addEventListener('mouseup', onMouseup)
   useBeforeDestroy(() => {

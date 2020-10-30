@@ -10,18 +10,26 @@
   h2 move test
   .move-div(
     v-for="element in elements"
-    @mousedown='element.move',
+    @mousedown='() => move(element.pos)',
     :style='{ left: element.pos.x + "px", top: element.pos.y + "px" }'
   ) move me
 </template>
 <script>
-import { useMove, useContext } from '../index.js'
+import { useMove } from '../index.js'
 export default {
   name: 'Move',
   data() {
     const elements = []
+    const move = useMove({
+      onMove: pos => {
+        pos.x = Math.max(0, pos.x)
+        pos.y = Math.max(0, pos.y)
+        console.log('on move', pos)
+      },
+      onMoveEnd: pos => console.log('on move end', pos),
+    })
+
     setTimeout(() => {
-      useContext(this)
       Array(10)
         .fill('')
         .forEach((val, i) => {
@@ -32,16 +40,6 @@ export default {
           const item = {
             index: i,
             pos,
-            move: useMove(pos, {
-              onMove: () => {
-                pos.x = Math.max(0, pos.x)
-                pos.y = Math.max(0, pos.y)
-                console.log('move')
-              },
-              onMoveEnd: () => {
-                console.log('move end')
-              },
-            }),
           }
           elements.push(item)
         })
@@ -49,6 +47,7 @@ export default {
 
     return {
       elements,
+      move,
     }
   },
 }

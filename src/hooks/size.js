@@ -3,23 +3,14 @@ import ResizeObserver from 'resize-observer-polyfill'
 import { getTargetElement } from './_dom'
 import { useMounted, useUpdated, useBeforeDestroy } from './instance'
 
-const useSize = (target, options = {}) => {
+const useSize = (options = {}) => {
   const { onSizeChange } = options
-  const state = Vue.observable({
-    clientWidth: NaN,
-    clientHeight: NaN,
-    offsetWidth: NaN,
-    offsetHeight: NaN,
-    scrollWidth: NaN,
-    scrollHeight: NaN,
-  })
-  let el = null
-  let resizeObserver = null
-  const setSize = () => {
+
+  const setSize = (target, state) => {
+    const el = getTargetElement(target)
     if (!el) {
       return
     }
-
     const { clientWidth, clientHeight, offsetWidth, offsetHeight, scrollWidth, scrollHeight } = el
 
     if (
@@ -40,24 +31,45 @@ const useSize = (target, options = {}) => {
     }
   }
 
-  const setSizeEffect = () => {
-    el = getTargetElement(target)
-    setSize()
-    if (!resizeObserver) {
-      resizeObserver = new ResizeObserver(entries => {
-        entries.forEach(setSize)
-      })
-    }
-    resizeObserver.observe(el)
+  const targetStates = []
+  const createState = () => {
+    return Vue.observable({
+      clientWidth: NaN,
+      clientHeight: NaN,
+      offsetWidth: NaN,
+      offsetHeight: NaN,
+      scrollWidth: NaN,
+      scrollHeight: NaN,
+    })
   }
-  useMounted(setSizeEffect)
-  useUpdated(setSizeEffect)
-  useBeforeDestroy(() => {
-    if (resizeObserver) {
-      resizeObserver.disconnect()
+  const createObserver = effect => new ResizeObserver(entries => entries.forEach(effect))
+
+  const addTarget = target => {
+    const state = createState()
+    const effect = () => {
+      setSize(target, state)
     }
+    const observer = createObserver(effect)
+    targetStates.push({
+      target,
+      observer,
+      effect,
+    })
+    return state
+  }
+  const runEffects = () =>
+    targetStates.forEach(targetState => {
+      const el = getTargetElement(targetState.target)
+      targetState.effect()
+      targetState.observer.observe(el)
+    })
+  useMounted(runEffects)
+  useUpdated(runEffects)
+  useBeforeDestroy(() => {
+    targetStates.forEach(targetState => targetState.observer.disconnect())
   })
-  return state
+
+  return addTarget
 }
 
 export default useSize
