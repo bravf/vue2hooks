@@ -32,14 +32,20 @@ export default {
           const item = {
             index: i,
             pos,
-            move: useMove(pos, () => {
-              pos.x = Math.max(0, pos.x)
-              pos.y = Math.max(0, pos.y)
+            move: useMove(pos, {
+              onMove: () => {
+                pos.x = Math.max(0, pos.x)
+                pos.y = Math.max(0, pos.y)
+                console.log('move')
+              },
+              onMoveEnd: () => {
+                console.log('move end')
+              },
             }),
           }
           elements.push(item)
         })
-    }, 1000)
+    }, 2000)
 
     return {
       elements,

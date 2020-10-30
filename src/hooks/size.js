@@ -3,7 +3,8 @@ import ResizeObserver from 'resize-observer-polyfill'
 import { getTargetElement } from './_dom'
 import { useMounted, useUpdated, useBeforeDestroy } from './instance'
 
-const useSize = target => {
+const useSize = (target, options = {}) => {
+  const { onSizeChange } = options
   const state = Vue.observable({
     clientWidth: NaN,
     clientHeight: NaN,
@@ -18,12 +19,25 @@ const useSize = target => {
     if (!el) {
       return
     }
-    state.clientWidth = el.clientWidth
-    state.clientHeight = el.clientHeight
-    state.offsetWidth = el.offsetWidth
-    state.offsetHeight = el.offsetHeight
-    state.scrollWidth = el.scrollWidth
-    state.scrollHeight = el.scrollHeight
+
+    const { clientWidth, clientHeight, offsetWidth, offsetHeight, scrollWidth, scrollHeight } = el
+
+    if (
+      state.clientWidth !== clientWidth ||
+      state.clientHeight !== clientHeight ||
+      state.offsetWidth !== offsetWidth ||
+      state.offsetHeight !== offsetHeight ||
+      state.scrollWidth !== scrollWidth ||
+      state.scrollHeight !== scrollHeight
+    ) {
+      state.clientWidth = clientWidth
+      state.clientHeight = clientHeight
+      state.offsetWidth = offsetWidth
+      state.offsetHeight = offsetHeight
+      state.scrollWidth = scrollWidth
+      state.scrollHeight = scrollHeight
+      onSizeChange && onSizeChange(state)
+    }
   }
 
   const setSizeEffect = () => {

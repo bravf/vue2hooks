@@ -375,13 +375,7 @@ const { screenX, screenY, clientX, clientY, pageX, pageY } = useMouse(() => {
 #### Config:
 
 ```javascript
-// 钩子函数，挂在触发拖动的元素上
-const start = useMove(
-  // 要移动的坐标值
-  (initPos = { x: 0, y: 0 }),
-  // 限定函数
-  (limit = () => {}),
-)
+const start = useMove(initPos, [options])
 ```
 
 #### Demo:
@@ -407,10 +401,10 @@ export default {
     const divPos = { x: 100, y: 100 }
     return {
       divPos,
-      move: useMove(divPos, (pos) => {
-        pos.x = Math.max(0, pos.x)
-        pos.y = Math.max(0, pos.y)
-      }),
+      move: useMove(divPos, {
+        onMove: () => {},
+        onMoveEnd: () => {},
+      })
     }
   },
 }
@@ -423,7 +417,7 @@ export default {
 #### Config
 
 ```javascript
-const size = useSize(target)
+const size = useSize(target, [options])
 ```
 
 #### Demo
@@ -454,7 +448,9 @@ export default {
     )
 
     return {
-      size: useSize(() => this.$refs.div),
+      size: useSize(() => this.$refs.div, {
+        onSizeChange: () => {}
+      }),
     }
   },
 }

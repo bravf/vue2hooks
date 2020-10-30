@@ -27,7 +27,9 @@ export default {
         .forEach((val, i) => {
           const item = {
             index: i,
-            size: useSize(() => this.$refs['div' + i][0]),
+            size: useSize(() => this.$refs['div' + i][0], {
+              onSizeChange: size => console.log(JSON.stringify(size)),
+            }),
           }
           elements.push(item)
         })

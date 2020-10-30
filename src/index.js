@@ -29,8 +29,8 @@ Vue.mixin({
   beforeCreate() {
     context._this = this
   },
-  beforeUpdate() {
-    context._this = this
+  mounted() {
+    context._this = null
   },
 })
 
