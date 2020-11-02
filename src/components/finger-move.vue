@@ -7,20 +7,20 @@
 </style>
 <template lang="pug">
 .move
-  h2 move test
+  h2 finger move test
   .move-div(
     v-for='element in elements',
-    @mousedown='(e) => move(e, element.pos)',
+    @touchstart='(e) => move(e, element.pos)',
     :style='{ left: element.pos.x + "px", top: element.pos.y + "px" }'
   ) move me
 </template>
 <script>
-import { useMove } from '../index.js'
+import { useFingerMove } from '../index.js'
 export default {
   name: 'Move',
   data() {
     const elements = []
-    const move = useMove({
+    const move = useFingerMove({
       onMove: (pos) => {
         pos.x = Math.max(0, pos.x)
         pos.y = Math.max(0, pos.y)
@@ -30,7 +30,7 @@ export default {
     })
 
     setTimeout(() => {
-      Array(10)
+      Array(2)
         .fill('')
         .forEach((val, i) => {
           const pos = {
@@ -43,7 +43,7 @@ export default {
           }
           elements.push(item)
         })
-    }, 2000)
+    }, 1000)
 
     return {
       elements,

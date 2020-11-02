@@ -27,4 +27,32 @@ const useMouse = (callback = () => {}) => {
   return state
 }
 
-export default useMouse
+const useFingerMouse = (callback = () => {}) => {
+  const state = Vue.observable({
+    screenX: NaN,
+    screenY: NaN,
+    clientX: NaN,
+    clientY: NaN,
+    pageX: NaN,
+    pageY: NaN,
+  })
+  const moveHandler = event => {
+    event.preventDefault()
+    const touch = event.touches[0]
+    state.screenX = touch.screenX
+    state.screenY = touch.screenY
+    state.clientX = touch.clientX
+    state.clientY = touch.clientY
+    state.pageX = touch.pageX
+    state.pageY = touch.pageY
+    callback(state)
+  }
+  document.addEventListener('touchmove', moveHandler, { passive: false })
+  useBeforeDestroy(() => {
+    document.removeEventListener('touchmove', moveHandler)
+  })
+
+  return state
+}
+
+export { useMouse, useFingerMouse }

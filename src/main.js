@@ -9,6 +9,7 @@ import HelloWord from './components/HelloWorld'
 import Instance from './components/instance'
 import Mouse from './components/mouse'
 import Move from './components/move'
+import FingerMove from './components/finger-move'
 import Size from './components/size'
 import Fullscreen from './components/fullscreen'
 
@@ -25,6 +26,7 @@ const routes = [
   { path: '/move', component: Move },
   { path: '/size', component: Size },
   { path: '/fullscreen', component: Fullscreen },
+  { path: '/finger-move', component: FingerMove },
 ]
 
 const router = new VueRouter({

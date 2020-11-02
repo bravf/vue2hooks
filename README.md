@@ -20,7 +20,9 @@ import { useRequest } from 'vue2hooks'
 - [useRouteQueryChange](#useRouteQueryChange)
 - [useSwitch](#useSwitch)
 - [useMouse](#useMouse)
+- [useFingerMouse](#useFingerMouse)
 - [useMove](#useMove)
+- [useFingerMove](#useFingerMove)
 - [useSize](#useSize)
 - [useFullscreen](#useFullscreen)
 - [useCreated](#useCreated)
@@ -370,6 +372,16 @@ const { screenX, screenY, clientX, clientY, pageX, pageY } = useMouse(() => {
 })
 ```
 
+### useFingerMouse
+
+#### Demo（移动端使用）:
+
+```javascript
+const { screenX, screenY, clientX, clientY, pageX, pageY } = useFingerMouse(() => {
+  console.log('mouse move')
+})
+```
+
 ### useMove
 
 #### Config:
@@ -391,7 +403,7 @@ const move = useMove([options])
 <template lang="pug">
 .move
   h2 move test
-  .move-div(@mousedown='() => move(divPos)', :style='{ left: divPos.x + "px", top: divPos.y + "px" }') move me
+  .move-div(@mousedown='(e) => move(e, divPos)', :style='{ left: divPos.x + "px", top: divPos.y + "px" }') move me
 </template>
 <script>
 import { useMove } from '../index.js'
@@ -400,6 +412,53 @@ export default {
   data() {
     const divPos = { x: 100, y: 100 }
     const move = useMove({
+      onMove: pos => {
+        pos.x = Math.max(0, pos.x)
+        pos.y = Math.max(0, pos.y)
+        console.log('on move', pos)
+      },
+      onMoveEnd: pos => console.log('on move end', pos),
+    })
+    return {
+      divPos,
+      move,
+    }
+  },
+}
+</script>
+
+```
+
+### useFingerMove
+
+#### Config:
+
+```javascript
+const move = useFingerMove([options])
+```
+
+#### Demo（移动端使用）:
+
+```javascript
+<style lang="sass" scoped>
+.move-div
+  position: absolute
+  width: 200px
+  height: 200px
+  border: 1px solid red
+</style>
+<template lang="pug">
+.move
+  h2 move test
+  .move-div(@touchstart='(e) => move(e, divPos)', :style='{ left: divPos.x + "px", top: divPos.y + "px" }') move me
+</template>
+<script>
+import { useFingerMove } from '../index.js'
+export default {
+  name: 'Mouse',
+  data() {
+    const divPos = { x: 100, y: 100 }
+    const move = useFingerMove({
       onMove: pos => {
         pos.x = Math.max(0, pos.x)
         pos.y = Math.max(0, pos.y)

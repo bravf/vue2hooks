@@ -20,8 +20,8 @@ import useQuickState from './hooks/quickState'
 import useRequest from './hooks/request'
 import useRouteQueryChange from './hooks/routeQueryChange'
 import useSwitch from './hooks/switch'
-import useMouse from './hooks/mouse'
-import useMove from './hooks/move'
+import { useMouse, useFingerMouse } from './hooks/mouse'
+import { useMove, useFingerMove } from './hooks/move'
 import useSize from './hooks/size'
 import useFullscreen from './hooks/fullscreen'
 
@@ -57,7 +57,9 @@ export {
   useRouteQueryChange,
   useSwitch,
   useMouse,
+  useFingerMouse,
   useMove,
+  useFingerMove,
   useSize,
   useFullscreen,
 }
