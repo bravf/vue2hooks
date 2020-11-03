@@ -21,16 +21,16 @@ export default {
   data() {
     const elements = []
     const move = useMove({
-      onMove: (pos) => {
+      onMove: pos => {
         pos.x = Math.max(0, pos.x)
         pos.y = Math.max(0, pos.y)
         console.log('on move', pos)
       },
-      onMoveEnd: (pos) => console.log('on move end', pos),
+      onMoveEnd: pos => console.log('on move end', pos),
     })
 
     setTimeout(() => {
-      Array(10)
+      Array(3)
         .fill('')
         .forEach((val, i) => {
           const pos = {
@@ -43,7 +43,7 @@ export default {
           }
           elements.push(item)
         })
-    }, 2000)
+    }, 100)
 
     return {
       elements,

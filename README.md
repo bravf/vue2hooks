@@ -367,9 +367,12 @@ useCreated(() => {
 #### Demo:
 
 ```javascript
-const { screenX, screenY, clientX, clientY, pageX, pageY } = useMouse(() => {
+// state: { screenX, screenY, clientX, clientY, pageX, pageY }
+const { state, start, stop } = useMouse(() => {
   console.log('mouse move')
 })
+start()
+stop()
 ```
 
 ### useFingerMouse
@@ -377,9 +380,11 @@ const { screenX, screenY, clientX, clientY, pageX, pageY } = useMouse(() => {
 #### Demo（移动端使用）:
 
 ```javascript
-const { screenX, screenY, clientX, clientY, pageX, pageY } = useFingerMouse(() => {
+const { state, start, stop } = useFingerMouse(() => {
   console.log('mouse move')
 })
+start()
+stop()
 ```
 
 ### useMove

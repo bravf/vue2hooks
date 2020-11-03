@@ -19,12 +19,10 @@ const useMouse = (callback = () => {}) => {
     state.pageY = event.pageY
     callback(state)
   }
-  document.addEventListener('mousemove', moveHandler)
-  useBeforeDestroy(() => {
-    document.removeEventListener('mousemove', moveHandler)
-  })
-
-  return state
+  const start = () => document.addEventListener('mousemove', moveHandler)
+  const stop = () => document.removeEventListener('mousemove', moveHandler)
+  useBeforeDestroy(stop)
+  return { state, start, stop }
 }
 
 const useFingerMouse = (callback = () => {}) => {
@@ -47,12 +45,10 @@ const useFingerMouse = (callback = () => {}) => {
     state.pageY = touch.pageY
     callback(state)
   }
-  document.addEventListener('touchmove', moveHandler, { passive: false })
-  useBeforeDestroy(() => {
-    document.removeEventListener('touchmove', moveHandler)
-  })
-
-  return state
+  const start = () => document.addEventListener('touchmove', moveHandler, { passive: false })
+  const stop = () => document.removeEventListener('touchmove', moveHandler)
+  useBeforeDestroy(stop)
+  return { state, start, stop }
 }
 
 export { useMouse, useFingerMouse }
