@@ -23,6 +23,7 @@ const _useMove = (eventType, _useMouse, getTouch) => (options = {}) => {
     if (!pos) {
       return
     }
+    event.preventDefault()
     isStart = true
     mouse.start()
     const touch = getTouch(event)
