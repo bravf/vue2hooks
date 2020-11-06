@@ -21,12 +21,12 @@ export default {
   data() {
     const elements = []
     const move = useMove({
-      onMove: pos => {
+      onMove: (pos, distance) => {
         pos.x = Math.max(0, pos.x)
         pos.y = Math.max(0, pos.y)
-        console.log('on move', pos)
+        console.log('on move', pos, distance)
       },
-      onMoveEnd: pos => console.log('on move end', pos),
+      onMoveEnd: (pos, distance) => console.log('on move end', pos, distance),
     })
 
     setTimeout(() => {

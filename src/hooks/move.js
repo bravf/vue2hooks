@@ -1,5 +1,5 @@
 import { useMouse, useFingerMouse } from './mouse'
-import { useBeforeDestroy } from './instance'
+import useQuickState from './quickState'
 
 const _useMove = (eventType, _useMouse, getTouch) => (options = {}) => {
   const { onMove, onMoveEnd } = options
@@ -13,23 +13,30 @@ const _useMove = (eventType, _useMouse, getTouch) => (options = {}) => {
     x: 0,
     y: 0,
   }
+  const moveDistance = useQuickState({
+    x: 0,
+    y: 0,
+  })
   const mouse = _useMouse(() => {
     if (!isStart) return
-    currPos.x = startPos.x + mouse.state.pageX - startMousePos.x
-    currPos.y = startPos.y + mouse.state.pageY - startMousePos.y
-    onMove && onMove(currPos)
+    const x = mouse.state.pageX - startMousePos.x
+    const y = mouse.state.pageY - startMousePos.y
+    currPos.x = startPos.x + x
+    currPos.y = startPos.y + y
+    moveDistance.state.x = x
+    moveDistance.state.y = y
+    onMove && onMove(currPos, moveDistance.state)
   })
   const onMousedown = (event, pos) => {
     if (!pos) {
       return
     }
-    event.preventDefault()
     isStart = true
+    moveDistance.reset()
     mouse.start()
     const touch = getTouch(event)
     startMousePos.x = touch.pageX
     startMousePos.y = touch.pageY
-
     currPos = pos
     startPos.x = currPos.x
     startPos.y = currPos.y
@@ -40,11 +47,10 @@ const _useMove = (eventType, _useMouse, getTouch) => (options = {}) => {
     isStart = false
     mouse.stop()
     removeMouseup()
-    onMoveEnd && onMoveEnd(currPos)
+    onMoveEnd && onMoveEnd(currPos, moveDistance.state)
   }
   const listenMouseup = () => document.addEventListener(eventType, onMouseup)
   const removeMouseup = () => document.removeEventListener(eventType, onMouseup)
-  useBeforeDestroy(removeMouseup)
   return onMousedown
 }
 

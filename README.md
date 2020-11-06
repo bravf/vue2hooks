@@ -417,7 +417,7 @@ export default {
   data() {
     const divPos = { x: 100, y: 100 }
     const move = useMove({
-      onMove: pos => {
+      onMove: (pos, moveDistance) => {
         pos.x = Math.max(0, pos.x)
         pos.y = Math.max(0, pos.y)
         console.log('on move', pos)
@@ -464,7 +464,7 @@ export default {
   data() {
     const divPos = { x: 100, y: 100 }
     const move = useFingerMove({
-      onMove: pos => {
+      onMove: (pos, moveDistance) => {
         pos.x = Math.max(0, pos.x)
         pos.y = Math.max(0, pos.y)
         console.log('on move', pos)
