@@ -1,8 +1,8 @@
-import Vue from 'vue'
+import useReactive from './reactive'
 import { useBeforeDestroy } from './instance'
 
 const useMouse = (callback = () => {}) => {
-  const state = Vue.observable({
+  const state = useReactive({
     screenX: NaN,
     screenY: NaN,
     clientX: NaN,
@@ -26,7 +26,7 @@ const useMouse = (callback = () => {}) => {
 }
 
 const useFingerMouse = (callback = () => {}) => {
-  const state = Vue.observable({
+  const state = useReactive({
     screenX: NaN,
     screenY: NaN,
     clientX: NaN,

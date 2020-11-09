@@ -1,9 +1,10 @@
 import Vue from 'vue'
+import useReactive from './reactive'
 import debounce from 'lodash.debounce'
 import throttle from 'lodash.throttle'
 import { useBeforeDestroy } from './instance'
 
-const useRequestStates = Vue.observable({})
+const useRequestStates = useReactive({})
 const useRequest = (fetcher, useRequestArgs = {}) => {
   useRequestArgs = {
     service: fetcher,
@@ -25,7 +26,7 @@ const useRequest = (fetcher, useRequestArgs = {}) => {
   }
   const getArgs = args => args || useRequestArgs.defaultParams()
   const createState = () => {
-    return Vue.observable({
+    return useReactive({
       loading: false,
       data: useRequestArgs.dataType(),
       promise: null,

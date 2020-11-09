@@ -37,6 +37,8 @@ import { useRequest } from 'vue2hooks'
 - [useWatch](#useWatch)
 - [useComputed](#useComputed)
 - [useContext](#useContext)
+- [useEffect](#useEffect)
+- [useReactive](#useReactive)
 - [useEventOn](#useEventOn)
 - [useEventOnce](#useEventOnce)
 - [useEventOff](#useEventOff)
@@ -273,7 +275,7 @@ export default {
       name: '',
       gender: '',
     })
-    cosnt pageSearch = usePageSearch({
+    const pageSearch = usePageSearch({
       quickState: searchQState,
       onSearch: () => {
         // listReq.run()
@@ -352,6 +354,10 @@ useEventOff('dataChange')
 ### useWatch
 
 ### useContext
+
+### useEffect
+
+### useReactive
 
 #### Config:
 

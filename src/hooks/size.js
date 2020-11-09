@@ -1,7 +1,7 @@
-import Vue from 'vue'
+import useReactive from './reactive'
 import ResizeObserver from 'resize-observer-polyfill'
 import { getTargetElement } from './_dom'
-import { useMounted, useUpdated, useBeforeDestroy } from './instance'
+import { useBeforeDestroy, useEffect } from './instance'
 
 const useSize = (options = {}) => {
   const { onSizeChange } = options
@@ -32,8 +32,8 @@ const useSize = (options = {}) => {
   }
 
   const targetStates = []
-  const createState = () => {
-    return Vue.observable({
+  const createState = () =>
+    useReactive({
       clientWidth: NaN,
       clientHeight: NaN,
       offsetWidth: NaN,
@@ -41,7 +41,7 @@ const useSize = (options = {}) => {
       scrollWidth: NaN,
       scrollHeight: NaN,
     })
-  }
+
   const createObserver = effect => new ResizeObserver(entries => entries.forEach(effect))
 
   const addTarget = target => {
@@ -63,8 +63,7 @@ const useSize = (options = {}) => {
       targetState.effect()
       targetState.observer.observe(el)
     })
-  useMounted(runEffects)
-  useUpdated(runEffects)
+  useEffect(runEffects)
   useBeforeDestroy(() => {
     targetStates.forEach(targetState => targetState.observer.disconnect())
   })

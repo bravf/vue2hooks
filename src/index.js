@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import useReactive from './hooks/reactive'
 import {
   context,
   useCreated,
@@ -35,6 +36,7 @@ Vue.mixin({
 })
 
 export {
+  useReactive,
   useCreated,
   useBeforeMount,
   useMounted,
