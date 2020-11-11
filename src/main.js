@@ -12,6 +12,9 @@ import Move from './components/move'
 import FingerMove from './components/finger-move'
 import Size from './components/size'
 import Fullscreen from './components/fullscreen'
+import Interval from './components/interval'
+import Timeout from './components/timeout'
+import Title from './components/title'
 
 Vue.use(VueRouter)
 Vue.use(ElementUI, { size: 'mini' })
@@ -27,6 +30,9 @@ const routes = [
   { path: '/size', component: Size },
   { path: '/fullscreen', component: Fullscreen },
   { path: '/finger-move', component: FingerMove },
+  { path: '/interval', component: Interval },
+  { path: '/timeout', component: Timeout },
+  { path: '/title', component: Title },
 ]
 
 const router = new VueRouter({

@@ -1,7 +1,5 @@
-import Vue from 'vue'
 import useReactive from './hooks/reactive'
 import {
-  context,
   useCreated,
   useBeforeMount,
   useMounted,
@@ -25,15 +23,9 @@ import { useMouse, useFingerMouse } from './hooks/mouse'
 import { useMove, useFingerMove } from './hooks/move'
 import useSize from './hooks/size'
 import useFullscreen from './hooks/fullscreen'
-
-Vue.mixin({
-  beforeCreate() {
-    context._this = this
-  },
-  mounted() {
-    context._this = null
-  },
-})
+import useTimeout from './hooks/timeout'
+import useInterval from './hooks/interval'
+import useTitle from './hooks/title'
 
 export {
   useReactive,
@@ -64,4 +56,7 @@ export {
   useFingerMove,
   useSize,
   useFullscreen,
+  useTimeout,
+  useInterval,
+  useTitle,
 }

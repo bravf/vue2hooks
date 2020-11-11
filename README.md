@@ -1,5 +1,11 @@
 # vue2hooks
 
+## 介绍
+
+```
+vue2hooks 是针对 vue2.x 的一款类 composition api 的工具库。完全兼容 vue2.x 项目，老项目无需做任何升级，也无需了解 3.0 中关于 composition api 的任何提案和概念即可使用。
+```
+
 ## 安装:
 
 ```
@@ -43,6 +49,9 @@ import { useRequest } from 'vue2hooks'
 - [useEventOnce](#useEventOnce)
 - [useEventOff](#useEventOff)
 - [useEventEmit](#useEventEmit)
+- [useInterval](#useInterval)
+- [useTimeout](#useTimeout)
+- [useTitle](#useTitle)
 
 ### useRequest
 
@@ -64,10 +73,9 @@ const testPromise = (testData, timeout) =>
       resolve(testData)
     }, timeout || 500)
   })
-const getList = testPromise([])
-
 export default {
   data () {
+    const getList = testPromise([])
     const getListReq = useRequest(getList, {
       auto: true,
     })
@@ -569,4 +577,114 @@ export default {
 }
 </script>
 
+```
+
+### useInterval
+
+#### Config
+
+```javascript
+const { state, start, stop, restart } = useInterval(callback, (delay = 1000), (immediate = true))
+```
+
+#### Demo
+
+```javascript
+<style lang="sass" scoped></style>
+<template lang="pug">
+.interval
+  h2 test interval
+  div
+    p 短信验证码倒计时
+    el-button(@click='msgCountdown.restart', :disabled='msgCountdown.state.activated') {{ msgCountdownValue }}
+</template>
+<script>
+import { useInterval, useComputed } from '../index.js'
+export default {
+  name: 'Interval',
+  data() {
+    const msgCountdown = useInterval(
+      () => {
+        if (msgCountdown.state.counter >= 5) msgCountdown.stop()
+      },
+      1000,
+      false,
+    )
+    useComputed('msgCountdownValue', () =>
+      msgCountdown.state.activated ? 5 - msgCountdown.state.counter : '点击发送',
+    )
+
+    return { msgCountdown }
+  },
+}
+</script>
+```
+
+### useTimeout
+
+#### Config
+
+```javascript
+const { start, stop } = useTimeout(callback, (delay = 1000), (immediate = true))
+```
+
+#### Demo
+
+```javascript
+<template lang="pug">
+.timeout
+  h2 test timeout
+  el-button-group
+    el-button(@click='timeout.stop') 停止
+    el-button(@click='timeout.start') 开始
+</template>
+<script>
+import { useTimeout } from '../index.js'
+export default {
+  name: 'Timeout',
+  data() {
+    const timeout = useTimeout(() => {
+      console.log('test timeout')
+    })
+    return {
+      timeout,
+    }
+  },
+}
+</script>
+```
+
+### useTitle
+
+#### Config
+
+```javascript
+const state = useTitle((title = document.title), (restoreOnUnmount = false))
+```
+
+#### Demo
+
+```javascript
+<template lang="pug">
+.title
+  h2 test title
+  div 页面加载时候改标题为 “你好”
+  div 2s 后改标题为 “世界”
+  a(href='#/move') 离开此页面，标题还原为默认标题
+</template>
+<script>
+import { useTitle, useTimeout } from '../index.js'
+export default {
+  name: 'Timeout',
+  data() {
+    const title = useTitle('你好', true)
+    useTimeout(() => {
+      title.value = '世界'
+    }, 2000)
+    return {
+      title,
+    }
+  },
+}
+</script>
 ```

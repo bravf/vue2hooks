@@ -15,7 +15,7 @@
   ) move me
 </template>
 <script>
-import { useMove } from '../index.js'
+import { useMove } from '../hooks/move'
 export default {
   name: 'Move',
   data() {

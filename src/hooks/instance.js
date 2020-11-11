@@ -1,3 +1,4 @@
+import Vue from 'vue'
 const context = {
   _this: null,
 }
@@ -15,9 +16,8 @@ const useEffect = callback => {
   useUpdated(callback)
 }
 const useWatch = (...args) => {
-  const f = () => context._this.$watch(...args)
   // watch 需要在 created 之后调用
-  useCreated(f)
+  useCreated(() => context._this.$watch(...args))
 }
 const useComputed = (key, value) => {
   if (!context._this.$options.computed) {
@@ -26,6 +26,16 @@ const useComputed = (key, value) => {
   context._this.$options.computed[key] = value
 }
 const useContext = _this => (context._this = _this)
+
+Vue.mixin({
+  beforeCreate() {
+    context._this = this
+  },
+  mounted() {
+    context._this = null
+  },
+})
+
 export {
   context,
   useCreated,
