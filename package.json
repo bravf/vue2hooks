@@ -1,6 +1,6 @@
 {
   "name": "vue2hooks",
-  "version": "0.6.7",
+  "version": "0.6.8",
   "main": "dist/vue2hooks.umd.js",
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "dayjs": "^1.9.6",
     "lodash.assign": "^4.2.0",
     "lodash.clonedeep": "^4.5.0",
     "lodash.debounce": "^4.0.8",

@@ -26,6 +26,7 @@ import useFullscreen from './hooks/fullscreen'
 import useTimeout from './hooks/timeout'
 import useInterval from './hooks/interval'
 import useTitle from './hooks/title'
+import useCountdown from './hooks/countdown'
 
 export {
   useReactive,
@@ -59,4 +60,5 @@ export {
   useTimeout,
   useInterval,
   useTitle,
+  useCountdown,
 }
