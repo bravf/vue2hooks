@@ -2,9 +2,8 @@
 
 ## 介绍
 
-```
-vue2hooks 是针对 vue2.x 的一款类 composition api 的工具库。完全兼容 vue2.x 项目，老项目无需做任何升级，也无需了解 3.0 中关于 composition api 的任何提案和概念即可使用。
-```
+vue2hooks 是针对 vue2.x 的一款类 composition api 的工具库，老项目无需做任何升级，也无需了解 3.0 中关于 composition api 的任何提案和概念即可使用。
+
 
 ## 安装:
 
