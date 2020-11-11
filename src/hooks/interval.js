@@ -22,8 +22,8 @@ const useInterval = (callback = () => {}, delay = 1000, immediate = true) => {
     state.activated = true
     clean()
     timer = setInterval(() => {
-      callback()
       state.counter++
+      callback()
     }, delay)
   }
   const restart = () => {
