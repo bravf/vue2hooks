@@ -1,6 +1,6 @@
 {
   "name": "vue2hooks",
-  "version": "0.6.8",
+  "version": "0.6.9",
   "main": "dist/vue2hooks.umd.js",
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -17,7 +17,7 @@
     "lodash.throttle": "^4.1.1",
     "resize-observer-polyfill": "^1.5.1",
     "screenfull": "^5.0.2",
-    "vue": "^2.6.11"
+    "vue": "^2.6.10"
   },
   "devDependencies": {
     "vue-router": "^3.4.3",
