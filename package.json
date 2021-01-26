@@ -1,6 +1,6 @@
 {
   "name": "vue2hooks",
-  "version": "0.6.9",
+  "version": "0.7.0",
   "main": "dist/vue2hooks.umd.js",
   "scripts": {
     "serve": "vue-cli-service serve",
