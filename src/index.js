@@ -27,6 +27,7 @@ import useTimeout from './hooks/timeout'
 import useInterval from './hooks/interval'
 import useTitle from './hooks/title'
 import useCountdown from './hooks/countdown'
+import useWheel from './hooks/wheel'
 
 export {
   useReactive,
@@ -61,4 +62,5 @@ export {
   useInterval,
   useTitle,
   useCountdown,
+  useWheel,
 }

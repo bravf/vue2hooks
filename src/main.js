@@ -16,6 +16,7 @@ import Interval from './demos/interval'
 import Timeout from './demos/timeout'
 import Title from './demos/title'
 import Countdown from './demos/countdown'
+import Wheel from './demos/wheel'
 
 Vue.use(VueRouter)
 Vue.use(ElementUI, { size: 'mini' })
@@ -35,6 +36,7 @@ const routes = [
   { path: '/timeout', component: Timeout },
   { path: '/title', component: Title },
   { path: '/countdown', component: Countdown },
+  { path: '/wheel', component: Wheel },
 ]
 
 const router = new VueRouter({
