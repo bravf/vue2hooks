@@ -425,7 +425,7 @@ const move = useMove([options])
   .move-div(@mousedown='(e) => move(e, divPos)', :style='{ left: divPos.x + "px", top: divPos.y + "px" }') move me
 </template>
 <script>
-  import { useMove } from '../index.js'
+  import { useMove } from 'vue2hooks'
   export default {
     name: 'Mouse',
     data() {
@@ -471,7 +471,7 @@ const move = useFingerMove([options])
   .move-div(@touchstart='(e) => move(e, divPos)', :style='{ left: divPos.x + "px", top: divPos.y + "px" }') move me
 </template>
 <script>
-  import { useFingerMove } from '../index.js'
+  import { useFingerMove } from 'vue2hooks'
   export default {
     name: 'Mouse',
     data() {
@@ -517,7 +517,7 @@ const size = getSize(() => this.$refs.div)
     img(src='https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png')
 </template>
 <script>
-  import { useSize } from '../index.js'
+  import { useSize } from 'vue2hooks'
   export default {
     name: 'Size',
     data() {
@@ -559,7 +559,7 @@ const { state, setFull, exitFull, toggleFull } = useFullscreen(target, [options]
     el-button(@click="fullscreen.toggleFull()") toggleFull
 </template>
 <script>
-  import { useFullscreen } from '../index.js'
+  import { useFullscreen } from 'vue2hooks'
   export default {
     name: 'Fullscreen',
     data() {
@@ -595,7 +595,7 @@ const { state, start, stop, restart } = useInterval(callback, (delay = 1000), (i
     el-button(@click='msgCountdown.restart', :disabled='msgCountdown.state.activated') {{ msgCountdownValue }}
 </template>
 <script>
-  import { useInterval, useComputed } from '../index.js'
+  import { useInterval, useComputed } from 'vue2hooks'
   export default {
     name: 'Interval',
     data() {
@@ -635,7 +635,7 @@ const { start, stop } = useTimeout(callback, (delay = 1000), (immediate = true))
     el-button(@click='timeout.start') 开始
 </template>
 <script>
-  import { useTimeout } from '../index.js'
+  import { useTimeout } from 'vue2hooks'
   export default {
     name: 'Timeout',
     data() {
@@ -669,7 +669,7 @@ const state = useTitle((title = document.title), (restoreOnUnmount = false))
   a(href='#/move') 离开此页面，标题还原为默认标题
 </template>
 <script>
-  import { useTitle, useTimeout } from '../index.js'
+  import { useTitle, useTimeout } from 'vue2hooks'
   export default {
     name: 'Timeout',
     data() {
@@ -718,7 +718,7 @@ const state = useCountdown(targetDate, (interval = 1000))
 
 </template>
 <script>
-  import { useCountdown, useTimeout, useComputed } from '../index.js'
+  import { useCountdown, useTimeout, useComputed } from 'vue2hooks'
   export default {
     name: 'Countdown',
     data() {
@@ -748,7 +748,7 @@ const state = useCountdown(targetDate, (interval = 1000))
   .wheel(:style='{ transform: "scale(" + zoomState.value + ")" }')
 </template>
 <script>
-  import { useWheel } from '../index.js'
+  import { useWheel } from 'vue2hooks'
   export default {
     name: 'Wheel',
     data() {
