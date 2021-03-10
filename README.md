@@ -2,7 +2,7 @@
 
 ## 介绍
 
-vue2hooks 是针对 vue2.x 的一款类 composition api 的工具库，老项目无需做任何升级，也无需了解 3.0 中关于 composition api 的任何提案和概念即可使用。
+vue2hooks 是针对 vue2.x 的一款类 composition api 的工具库，老项目无需做任何升级即可使用
 
 ## 安装:
 
@@ -65,24 +65,72 @@ import { useRequest } from 'vue2hooks'
   <div v-if="getListReq.state.data">
     <div v-for="item in getListReq.state.data"></div>
   </div>
+</div>
 </template>
 <script>
-const testPromise = (testData, timeout) =>
-  new Promise(resolve => {
-    setTimeout(() => {
-      resolve(testData)
-    }, timeout || 500)
-  })
 export default {
   data () {
-    const getList = () => testPromise([])
+    const getList = (params) => axios.get('/api/list', params)
     const getListReq = useRequest(getList, {
+      // 自动发请求
       auto: true,
+      // 设置默认参数
+      defaultParams: () => ({})
     })
+
     return {
       getListReq,
     }
   }
+}
+
+</script>
+```
+
+```javascript
+<template>
+<div class="list-page">
+  <div v-loading="getDetailReq.getState({id:1}).loading">{{getDetailReq.getState({id:1}).data}}</div>
+  <div v-loading="getDetailReq.getState({id:1}).loading">{{getDetailReq.getState({id:1}).data}}</div>
+</div>
+</template>
+<script>
+export default {
+  data () {
+    const getDetail = (params) => axios.get('/api/detail', params)
+    const getDetailReq = useRequest(getDetail, {
+      fetchKey: params => params.id
+    })
+    // 主动发请求
+    getDetailReq.run({id: 1})
+    getDetailReq.run({id: 2})
+
+    return {
+      getDetailReq,
+    }
+  }
+}
+
+</script>
+```
+
+```javascript
+<script>
+export default {
+  data () {
+    const getList = (params) => axios.get('/api/list', params)
+    const getListReq = useRequest(getList, {
+      // 设置默认参数
+      defaultParams: () => ({})
+    })
+    // 轮训查询
+    getListReq.runPolling()
+
+    return {
+      getListReq,
+    }
+  }
+}
 
 </script>
 ```
